@@ -1,0 +1,6 @@
+/.idea
+/.vscode
+/debug
+scripts/coverage.out
+scripts/coverage_cleaned.out
+scripts/coverage.html
