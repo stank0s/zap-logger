@@ -1,5 +1,5 @@
 #!/bin/bash
-GOFLAGS="" go test -cover -coverprofile=./scripts/coverage.out ./...
+go test -cover -coverprofile=./scripts/coverage.out ./...
 
 TEST_ERROR=$?
 
