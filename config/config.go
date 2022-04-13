@@ -17,7 +17,12 @@ func NewConfig(atom zap.AtomicLevel) *Config {
 	}
 }
 
-func (c *Config) CreateLoggerConfig(level string) (cfg zap.Config, err error) {
+func (c *Config) CreateLoggerConfig(level string, colored bool) (cfg zap.Config, err error) {
+	encodeLevel := zapcore.CapitalLevelEncoder
+	if colored {
+		encodeLevel = zapcore.CapitalColorLevelEncoder
+	}
+
 	cfg = zap.Config{
 		Encoding:    "json",
 		Level:       c.atom,
@@ -25,7 +30,7 @@ func (c *Config) CreateLoggerConfig(level string) (cfg zap.Config, err error) {
 		EncoderConfig: zapcore.EncoderConfig{
 			MessageKey:  "message",
 			LevelKey:    "severity",
-			EncodeLevel: zapcore.CapitalLevelEncoder,
+			EncodeLevel: encodeLevel,
 			TimeKey:     "time",
 			EncodeTime:  zapcore.ISO8601TimeEncoder,
 		},

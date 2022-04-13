@@ -35,16 +35,16 @@ func (m *MockConfig) EXPECT() *MockConfigMockRecorder {
 }
 
 // CreateLoggerConfig mocks base method.
-func (m *MockConfig) CreateLoggerConfig(level string) (zap.Config, error) {
+func (m *MockConfig) CreateLoggerConfig(level string, colored bool) (zap.Config, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateLoggerConfig", level)
+	ret := m.ctrl.Call(m, "CreateLoggerConfig", level, colored)
 	ret0, _ := ret[0].(zap.Config)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // CreateLoggerConfig indicates an expected call of CreateLoggerConfig.
-func (mr *MockConfigMockRecorder) CreateLoggerConfig(level interface{}) *gomock.Call {
+func (mr *MockConfigMockRecorder) CreateLoggerConfig(level, colored interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLoggerConfig", reflect.TypeOf((*MockConfig)(nil).CreateLoggerConfig), level)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLoggerConfig", reflect.TypeOf((*MockConfig)(nil).CreateLoggerConfig), level, colored)
 }

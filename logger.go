@@ -21,8 +21,8 @@ func NewLogger() *Logger {
 	}
 }
 
-func (l *Logger) Logger(level string) (*zap.Logger, error) {
-	cfg, err := l.cfg.CreateLoggerConfig(level)
+func (l *Logger) Logger(level string, colored bool) (*zap.Logger, error) {
+	cfg, err := l.cfg.CreateLoggerConfig(level, colored)
 	if err != nil {
 		return nil, err
 	}
@@ -35,9 +35,9 @@ func (l *Logger) Logger(level string) (*zap.Logger, error) {
 	return log, nil
 }
 
-func (l *Logger) SugaredLogger(level string) (sl *zap.SugaredLogger, err error) {
+func (l *Logger) SugaredLogger(level string, colored bool) (sl *zap.SugaredLogger, err error) {
 	var log *zap.Logger
-	log, err = l.Logger(level)
+	log, err = l.Logger(level, colored)
 	if err != nil {
 		return nil, err
 	}

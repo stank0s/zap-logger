@@ -33,7 +33,7 @@ func Test_CreateLoggerConfig_Happy(t *testing.T) {
 	}
 
 	// when: calling function
-	cfg, err := c.CreateLoggerConfig("info")
+	cfg, err := c.CreateLoggerConfig("info", true)
 
 	// then: no error returned
 	assert.NoError(t, err)
@@ -55,7 +55,7 @@ func Test_CreateLoggerConfig_Unhappy(t *testing.T) {
 	}
 
 	// when: calling function
-	_, err := c.CreateLoggerConfig("nonsense")
+	_, err := c.CreateLoggerConfig("nonsense", false)
 
 	// then: error returned
 	assert.Error(t, err)
