@@ -11,7 +11,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func Test_NewLogger(t *testing.T) {
+func Test_NewLOgger(t *testing.T) {
 	// when: creating new logger object
 	l := NewLogger()
 
@@ -27,7 +27,7 @@ func Test_Logger_Happy(t *testing.T) {
 
 	// and: necessary mocks
 	mockConfig := mocks.NewMockConfig(ctrl)
-	mockConfig.EXPECT().CreateLoggerConfig("info", true).Return(zap.Config{
+	mockConfig.EXPECT().CreateLoggerConfig("info").Return(zap.Config{
 		Encoding: "json",
 		Level:    zap.NewAtomicLevelAt(zapcore.InfoLevel),
 	}, nil)
@@ -38,7 +38,7 @@ func Test_Logger_Happy(t *testing.T) {
 	}
 
 	// when: calling function
-	log, err := l.Logger("info", true)
+	log, err := l.Logger("info")
 
 	// then: no error returned
 	assert.NoError(t, err)
@@ -52,7 +52,7 @@ func Test_Logger_Config_Error(t *testing.T) {
 
 	// and: necessary mocks
 	mockConfig := mocks.NewMockConfig(ctrl)
-	mockConfig.EXPECT().CreateLoggerConfig("info", false).Return(zap.Config{}, errors.New("test error"))
+	mockConfig.EXPECT().CreateLoggerConfig("info").Return(zap.Config{}, errors.New("test error"))
 
 	// and: test subject
 	l := Logger{
@@ -60,7 +60,7 @@ func Test_Logger_Config_Error(t *testing.T) {
 	}
 
 	// when: calling function
-	_, err := l.Logger("info", false)
+	_, err := l.Logger("info")
 
 	// then: error returned
 	assert.Error(t, err)
@@ -73,7 +73,7 @@ func Test_Logger_Builder_Error(t *testing.T) {
 
 	// and: necessary mocks
 	mockConfig := mocks.NewMockConfig(ctrl)
-	mockConfig.EXPECT().CreateLoggerConfig("info", true).Return(zap.Config{
+	mockConfig.EXPECT().CreateLoggerConfig("info").Return(zap.Config{
 		Encoding: "json",
 		Level:    zap.NewAtomicLevelAt(zapcore.InfoLevel),
 	}, nil)
@@ -90,7 +90,7 @@ func Test_Logger_Builder_Error(t *testing.T) {
 	}
 
 	// when: calling function
-	_, err := l.Logger("info", true)
+	_, err := l.Logger("info")
 
 	// then: error returned
 	assert.Error(t, err)
@@ -105,7 +105,7 @@ func Test_SugaredLogger_Happy(t *testing.T) {
 
 	// and: necessary mocks
 	mockConfig := mocks.NewMockConfig(ctrl)
-	mockConfig.EXPECT().CreateLoggerConfig("info", false).Return(zap.Config{
+	mockConfig.EXPECT().CreateLoggerConfig("info").Return(zap.Config{
 		Encoding: "json",
 		Level:    zap.NewAtomicLevelAt(zapcore.InfoLevel),
 	}, nil)
@@ -116,7 +116,7 @@ func Test_SugaredLogger_Happy(t *testing.T) {
 	}
 
 	// when: calling function
-	log, err := l.SugaredLogger("info", false)
+	log, err := l.SugaredLogger("info")
 
 	// then: no error returned
 	assert.NoError(t, err)
@@ -130,7 +130,7 @@ func Test_SugaredLogger_Unhappy(t *testing.T) {
 
 	// and: necessary mocks
 	mockConfig := mocks.NewMockConfig(ctrl)
-	mockConfig.EXPECT().CreateLoggerConfig("info", true).Return(zap.Config{}, errors.New("test error"))
+	mockConfig.EXPECT().CreateLoggerConfig("info").Return(zap.Config{}, errors.New("test error"))
 
 	// and: test subject
 	l := Logger{
@@ -138,7 +138,7 @@ func Test_SugaredLogger_Unhappy(t *testing.T) {
 	}
 
 	// when: calling function
-	_, err := l.SugaredLogger("info", true)
+	_, err := l.SugaredLogger("info")
 
 	// then: error returned
 	assert.Error(t, err)
